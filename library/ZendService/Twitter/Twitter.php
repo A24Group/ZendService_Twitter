@@ -213,7 +213,7 @@ class Twitter
      */
     public function __call($method, $params)
     {
-        if (method_exists($this->oauthConsumer, $method)) {
+        if (!empty($this->oauthConsumer) && method_exists($this->oauthConsumer, $method)) {
             $return = call_user_func_array(array($this->oauthConsumer, $method), $params);
             if ($return instanceof OAuth\Token\Access) {
                 $this->setHttpClient($return->getHttpClient($this->options));
